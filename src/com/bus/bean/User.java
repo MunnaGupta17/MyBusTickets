@@ -1,4 +1,4 @@
-package com.redBus.bean;
+package com.bus.bean;
 
 public class User {
 

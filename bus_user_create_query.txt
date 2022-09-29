@@ -1,0 +1,81 @@
+
+                                                                                  TABLES
+                                                                                  ------ 
+
+user :
+------
+
+mysql> desc user;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int         | NO   | PRI | NULL    |       |
+| name      | varchar(20) | YES  |     | NULL    |       |
+| email     | varchar(50) | YES  |     | NULL    |       |
+| password  | varchar(20) | YES  |     | NULL    |       |
+| user_type | varchar(20) | YES  |     | NULL    |       |
+| phone     | varchar(20) | YES  |     | NULL    |       |
+| address   | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+
+bus :
+-----
+
+
+
+mysql> desc bus;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| id              | int          | NO   | PRI | NULL    |       |
+| name            | varchar(20)  | YES  |     | NULL    |       |
+| number          | varchar(20)  | YES  |     | NULL    |       |
+| driver_id       | int          | YES  | MUL | NULL    |       |
+| route           | varchar(100) | YES  |     | NULL    |       |
+| type            | varchar(10)  | YES  |     | NULL    |       |
+| source          | varchar(20)  | YES  |     | NULL    |       |
+| destination     | varchar(20)  | YES  |     | NULL    |       |
+| arrival_time    | datetime     | YES  |     | NULL    |       |
+| departure_time  | datetime     | YES  |     | NULL    |       |
+| total_seats     | int          | YES  |     | NULL    |       |
+| available_seats | int          | YES  |     | NULL    |       |
+| is_available    | bit(1)       | YES  |     | NULL    |       |
+| price           | int          | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+14 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
