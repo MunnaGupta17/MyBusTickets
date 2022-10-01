@@ -1,14 +1,19 @@
 package com.bus.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import com.bus.bean.BusDTO;
 import com.bus.bean.DriverDTO;
+import com.bus.exceptions.BusNotFoundException;
+import com.bus.exceptions.SeatNotFoundException;
 
 public interface CustomerDao {
 
-	DriverDTO bookTicket(BusDTO busInfo);
+	DriverDTO bookTicket(String busNumber, LocalDateTime journeyDate, int noOfSeats) throws BusNotFoundException,SeatNotFoundException;
+	
 
-	String cancelTicket(BusDTO busInfo);
+	String cancelTicket(String busNumber, LocalDateTime journeyDate,int noOfSeats) throws BusNotFoundException;
+	
+	
 
 }
