@@ -9,7 +9,7 @@ import com.bus.dao.AdmintratorDaoImpl;
 import com.bus.exceptions.BusNotFoundException;
 
 public class GetAllBusesDetailsUseCase {
-	public static void main(String[] args) throws BusNotFoundException {
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter source");
 		String source = sc.nextLine();
@@ -17,14 +17,18 @@ public class GetAllBusesDetailsUseCase {
 		String destination = sc.nextLine();
 
 		AdministratorDao adminDao = new AdmintratorDaoImpl();
-		List<BusDTO> busList = adminDao.getBusesBasedOnSourceAndDestination(source, destination);
-		System.out.println("Buses");
-		System.out.println("=====");
-		System.out.println();
-		for (BusDTO i : busList) {
-			System.out.println("Name -> " + i.getName() + " , type -> " + i.getType() + " , route -> " + i.getRoute()
-					+ " , availableSeats -> " + i.getAvailableSeats() + " , arrivalTime-> " + i.getArrivalTime()
-					+ " , departureTime - > " + i.getDepartureTime());
+		try {
+			List<BusDTO> busList = adminDao.getBusesBasedOnSourceAndDestination(source, destination);
+			System.out.println("Buses");
+			System.out.println("=====");
+			System.out.println();
+			for (BusDTO i : busList) {
+				System.out.println("Name -> " + i.getName() + " , type -> " + i.getType() + " , route -> "
+						+ i.getRoute() + " , availableSeats -> " + i.getAvailableSeats() + " , arrivalTime-> "
+						+ i.getArrivalTime() + " , departureTime - > " + i.getDepartureTime());
+			}
+		} catch (BusNotFoundException bnfe) {
+		   System.out.println(bnfe.getMessage());
 		}
 
 	}

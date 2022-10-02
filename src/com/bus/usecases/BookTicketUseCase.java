@@ -22,7 +22,7 @@ public class BookTicketUseCase {
 		System.out.println("Enter no of seats");
 		int noOfSeats = sc.nextInt();
 		sc.nextLine();
-		System.out.println("Enter journeyDate");
+		System.out.println("Enter arrival date in this format(yyyy-MM-dd HH:mm:ss)");
 		String dateTime = sc.nextLine();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime journeyDate = LocalDateTime.parse(dateTime, formatter);
@@ -30,11 +30,12 @@ public class BookTicketUseCase {
 		CustomerDao customerDao = new CustomerDaoImpl();
 		try {
 			DriverDTO driverDTO = customerDao.bookTicket(busNumber, journeyDate, noOfSeats);
+			System.out.println("ticket booked successfully");
 			System.out.println(driverDTO);
 		} catch (BusNotFoundException bnfe) {
 			System.out.println(bnfe.getMessage());
 		} catch (SeatNotFoundException snfe) {
-			System.out.println(snfe);
+			System.out.println(snfe.getMessage());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -13,7 +13,7 @@ public class LoginUseCase {
 
 		Scanner sc = new Scanner(System.in);
 
-		System.out.println("Enter Username:");
+		System.out.println("Enter email:");
 		String uname = sc.next();
 
 		System.out.println("Enter Password:");

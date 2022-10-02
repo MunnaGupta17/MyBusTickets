@@ -6,6 +6,6 @@ public class BusNotFoundException extends Exception {
 	}
 
 	public BusNotFoundException(String message) {
-		super(message);
+		super("bus not found with this number or arrival date");
 	}
 }
