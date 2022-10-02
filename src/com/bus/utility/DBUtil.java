@@ -10,7 +10,7 @@ public class DBUtil {
 
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/c4evalution", "root", "root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bus_ticket_reservation_system", "root", "root");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

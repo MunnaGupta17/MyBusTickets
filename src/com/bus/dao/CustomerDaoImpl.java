@@ -20,7 +20,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 		try (Connection conn = DBUtil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("select * from bus where bus_number = ? AND arrival_time = ?");
+			PreparedStatement ps = conn.prepareStatement("select * from bus where number = ? AND arrival_time = ?");
 
 			ps.setString(1, busNumber);
 			ps.setString(2, journeyDate.toString());
@@ -28,17 +28,25 @@ public class CustomerDaoImpl implements CustomerDao {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				int availableSeats = rs.getInt("avalaible_seats");
+				int availableSeats = rs.getInt("available_seats");
 				if (availableSeats < noOfSeats) {
 					throw new SeatNotFoundException("Seats are not avaiable");
 				} else {
-					ps = conn.prepareStatement(
-							"update bus set avalaible_seats=? where bus_number = ? AND arrival_time = ?");
+					ps = conn
+							.prepareStatement("update bus set available_seats=? where number = ? AND arrival_time = ?");
 					ps.setInt(1, availableSeats - noOfSeats);
+
 					ps.setString(2, busNumber);
+
 					ps.setString(3, journeyDate.toString());
-					ps.executeQuery();
-					driver = new DriverDTO(rs.getString("number"), rs.getString("phone"), rs.getString("email"));
+					ps.executeUpdate();
+
+					ps = conn.prepareStatement("select * from user where id = ?");
+					ps.setInt(1, rs.getInt("driver_id"));
+					ResultSet rs1 = ps.executeQuery();
+					if (rs1.next()) {
+						driver = new DriverDTO(rs1.getString("name"), rs1.getString("phone"), rs1.getString("email"));
+					}
 				}
 
 			} else
@@ -57,7 +65,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 		try (Connection conn = DBUtil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("select * from bus where bus_number = ? AND arrival_time = ?");
+			PreparedStatement ps = conn.prepareStatement("select * from bus where number = ? AND arrival_time = ?");
 
 			ps.setString(1, busNumber);
 			ps.setString(2, journeyDate.toString());
@@ -65,13 +73,14 @@ public class CustomerDaoImpl implements CustomerDao {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				int availableSeats = rs.getInt("avalaible_seats");
+				int availableSeats = rs.getInt("available_seats");
 				ps = conn
-						.prepareStatement("update bus set avalaible_seats=? where bus_number = ? AND arrival_time = ?");
+						.prepareStatement("update bus set available_seats=? where number = ? AND arrival_time = ?");
 				ps.setInt(1, availableSeats + noOfSeats);
 				ps.setString(2, busNumber);
 				ps.setString(3, journeyDate.toString());
-				ps.executeQuery();
+				ps.executeUpdate();
+				msg = "ticket canceled successfully";
 
 			} else
 				throw new BusNotFoundException("Invalid bus number.. ");

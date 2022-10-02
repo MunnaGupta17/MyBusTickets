@@ -60,20 +60,24 @@ public class AdmintratorDaoImpl implements AdministratorDao {
 
 			ResultSet rs = ps.executeQuery();
 			try {
-				if (rs.next()) {
-
-					Timestamp timestamp = rs.getTimestamp("arrivalTime");
+				int count = 0;
+				while (rs.next()) {
+                    count++;
+					Timestamp timestamp = rs.getTimestamp("arrival_time");
 					LocalDateTime arrivalTime = timestamp.toLocalDateTime();
 
-					Timestamp timestamp1 = rs.getTimestamp("arrivalTime");
+					Timestamp timestamp1 = rs.getTimestamp("departure_time");
 					LocalDateTime departureTime = timestamp1.toLocalDateTime();
 
 					BusDTO busDTO = new BusDTO(rs.getString("name"), rs.getString("route"), rs.getString("type"),
-							rs.getInt("availableSeats"), arrivalTime, departureTime);
+							rs.getInt("available_seats"), arrivalTime, departureTime);
 					busList.add(busDTO);
 
-				} else
+				}
+				if(count == 0) {
 					throw new BusNotFoundException("No buses available ");
+				}
+					
 			} catch (BusNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
